@@ -40,6 +40,7 @@ namespace Tabloid
                 return new Entry()
                 {
                     Id = id,
+                    Path = path,
                     CreateDateTime = createDate,
                     Title = title,
                     Content = content
@@ -62,6 +63,11 @@ namespace Tabloid
             entry.Id = newId;
             entry.Path = path;
             return entry;
+        }
+
+        public void Remove(Entry entry)
+        {
+            File.Delete(entry.Path);
         }
     }
 }
