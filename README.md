@@ -1,6 +1,6 @@
 # Tabloid
 
-A command line journalling application.
+A command line journaling application.
 
 ## Features
 
