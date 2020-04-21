@@ -15,8 +15,6 @@ dotnet run
 
 ## Features
 
-> _[X] == done_
-
 * [x] List entries by date
 * [x] View entry details
 * [x] Delete an entry
