@@ -34,7 +34,7 @@ namespace Tabloid
 
                 string title = lines[1];
 
-                IEnumerable<string> contentLines = lines.Skip(2);
+                IEnumerable<string> contentLines = lines.Skip(3);
                 string content = string.Join("\n", contentLines);
 
                 return new Entry()
@@ -56,6 +56,7 @@ namespace Tabloid
             string path = Path.Combine(ROOT_DIRECTORY, $"{newId}.txt");
             string fileContents = $@"{entry.CreateDateTime}
 {entry.Title}
+----------------------------------------------------------
 {entry.Content}";
 
             File.WriteAllText(path, fileContents);

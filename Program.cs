@@ -17,9 +17,10 @@ namespace Tabloid
             while (true)
             {
                 Console.WriteLine();
-                Console.WriteLine("1) List Journal Entries");
+                Console.WriteLine("1) View Journal Entries");
                 Console.WriteLine("2) New Journal Entry");
-                Console.WriteLine("3) Delete a Journal Entry");
+                Console.WriteLine("3) Edit a Journal Entry");
+                Console.WriteLine("4) Delete a Journal Entry");
                 Console.WriteLine("0) Exit");
                 Console.Write("> ");
 
@@ -33,12 +34,26 @@ namespace Tabloid
                         break;
                     case "1":
                         Console.Clear();
+                        Console.WriteLine("Which entry would you like to edit?");
                         List<Entry> entries = repo.GetAll();
-                        foreach (Entry anEntry in entries)
+                        for (int i = 1; i <= entries.Count; i++)
                         {
-                            Console.WriteLine($"{anEntry.Title}");
+                            Console.WriteLine($"{i}) {entries[i - 1].Title}");
                         }
-                        break;
+                        Console.Write("> ");
+                        string viewChoice = Console.ReadLine();
+                        if (int.TryParse(viewChoice, out int index) && index > 0 && index <= entries.Count)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("--------------------------");
+                            Console.WriteLine(entries[index - 1].Title);
+                            Console.WriteLine(entries[index - 1].CreateDateTime);
+                            Console.WriteLine();
+                            Console.WriteLine(entries[index - 1].Content);
+                            Console.WriteLine("--------------------------");
+                            Console.WriteLine();
+                        }
+                         break;
                     case "2":
                         Console.Clear();
                         Console.Write("What is the title? ");
@@ -50,9 +65,24 @@ namespace Tabloid
                             Content = "...Enter your content here..."
                         };
                         repo.Add(newEntry);
-                        editor.Start(newEntry);
+                        editor.Open(newEntry);
                         break;
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("Which entry would you like to edit?");
+                        List<Entry> editableEntries = repo.GetAll();
+                        for (int i = 1; i <= editableEntries.Count; i++)
+                        {
+                            Console.WriteLine($"{i}) {editableEntries[i - 1].Title}");
+                        }
+                        Console.Write("> ");
+                        string editChoice = Console.ReadLine();
+                        if (int.TryParse(editChoice, out index) && index > 0 && index <= editableEntries.Count)
+                        {
+                            editor.Open(editableEntries[index - 1]);
+                        }
+                         break;
+                    case "4":
                         Console.Clear();
                         Console.WriteLine("Which entry would you like to delete?");
                         List<Entry> deleteableEntries = repo.GetAll();
@@ -62,7 +92,7 @@ namespace Tabloid
                         }
                         Console.Write("> ");
                         string deleteChoice = Console.ReadLine();
-                        if (int.TryParse(deleteChoice, out int index) && index > 0 && index <= deleteableEntries.Count)
+                        if (int.TryParse(deleteChoice, out index) && index > 0 && index <= deleteableEntries.Count)
                         {
                             repo.Remove(deleteableEntries[index - 1]);
                         }
