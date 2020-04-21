@@ -8,6 +8,7 @@ namespace Tabloid
         static void Main(string[] args)
         {
             EntryRepository repo = new EntryRepository();
+            EditorManager editor = new EditorManager();
 
             Console.Clear();
             Console.WriteLine("Welcome to Tabloid!");
@@ -46,6 +47,7 @@ namespace Tabloid
                             Content = "...Enter your content here..."
                         };
                         repo.Add(newEntry);
+                        editor.Start(newEntry);
                         break;
                     default:
                         Console.WriteLine("Invalid Option");
